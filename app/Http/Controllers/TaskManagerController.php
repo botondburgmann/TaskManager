@@ -61,11 +61,25 @@ class TaskManagerController extends Controller
         }
 
 
+
         $listItem->name = $request->name;
         $listItem->description = $request->description;
         $listItem->due_date = $request->due_date;
         $listItem->save();
 
+        return redirect('/');
+    }
+
+    // Delete Listing
+    public function destroy(ListItem $listItem)
+    {
+        // Make sure logged in user is owner
+
+        if ($listItem->user_id != auth()->id()) {
+            abort(403, 'Unauthorized Action');
+        }
+
+        $listItem->delete();
         return redirect('/');
     }
 }

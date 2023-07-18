@@ -38,6 +38,9 @@ Route::get('/editItem/{listItem}', [TaskManagerController::class, 'edit'])->midd
 // Update Task
 Route::put('/saveItem/{listItem}', [TaskManagerController::class, 'update'])->middleware('auth');
 
+// Delete Task
+Route::delete('/deleteItem/{listItem}', [TaskManagerController::class, 'destroy'])->middleware('auth');
+
 // Show Registration Form
 Route::get('/register', [UserController::class, 'register'])->middleware('guest');
 
