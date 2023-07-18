@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class ListItem extends Model
 {
     use HasFactory;
+
+    // Relationship With User
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

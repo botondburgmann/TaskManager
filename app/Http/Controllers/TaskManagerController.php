@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\ListItem;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TaskManagerController extends Controller
 {
@@ -16,6 +18,7 @@ class TaskManagerController extends Controller
     public function store(Request $request)
     {
         $newListItem = new ListItem();
+        $newListItem->user_id = Auth::id();
         $newListItem->name = $request->name;
         $newListItem->description = $request->description;
         $newListItem->due_date = $request->due_date;

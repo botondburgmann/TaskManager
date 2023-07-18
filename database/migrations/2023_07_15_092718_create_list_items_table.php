@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('list_items', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('name');
             $table->longText('description');
             $table->date('due_date');
