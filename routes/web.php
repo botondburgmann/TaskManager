@@ -18,22 +18,31 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [TaskManagerController::class, 'index']);
 
 // Store Task To Database
-Route::post('/saveItem', [TaskManagerController::class, 'store']);
+Route::post('/saveItem', [TaskManagerController::class, 'store'])->middleware('auth');
 
 // Update Task As Completed
-Route::get('/completeItem/{id}', [TaskManagerController::class, 'complete']);
+Route::get('/completeItem/{id}', [TaskManagerController::class, 'complete'])->middleware('auth');
 
 // Filter Completed Tasks
-Route::get('/filterComplete', [TaskManagerController::class, 'filterComplete']);
+Route::get('/filterComplete', [TaskManagerController::class, 'filterComplete'])->middleware('auth');
 
 // Filter Pending Tasks
-Route::get('/filterPending', [TaskManagerController::class, 'filterPending']);
+Route::get('/filterPending', [TaskManagerController::class, 'filterPending'])->middleware('auth');
 
 // Show All Tasks
-Route::get('/showAll', [TaskManagerController::class, 'index']);
+Route::get('/showAll', [TaskManagerController::class, 'index'])->middleware('auth');
 
 // Show Registration Form
-Route::get('/register', [UserController::class, 'register']);
+Route::get('/register', [UserController::class, 'register'])->middleware('guest');
 
 // Register User
 Route::post('/users', [UserController::class, 'store']);
+
+// Log User Out
+Route::post('/logout', [UserController::class, 'logout'])->middleware('auth');
+
+// Show Login Form
+Route::get('/login', [UserController::class, 'login'])->name('login')->middleware('guest');
+
+// Log In User
+Route::post('/users/authenicate', [UserController::class, 'authenicate']);
