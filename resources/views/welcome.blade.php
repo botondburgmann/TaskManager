@@ -66,20 +66,22 @@
         Show All</a>
         
         @foreach ($listItems as $listItem )
-            <p>Task: {{ $listItem->name }} - Deadline: {{ $listItem->due_date }} - Status
-                @if ($listItem->is_complete == 0)
-                    pending
-                    <a
-                    href="/completeItem/{{ $listItem->id }}"
-                    ><i
-                        class="fa-solid fa-check"
-                    ></i>
-                    Mark complete</a>
-                @else
-                    complete
-                @endif
-
+        <p style="display: inline-block;">
+            Task: {{ $listItem->name }} - Deadline: {{ $listItem->due_date }} - Status
+            @if ($listItem->is_complete == 0)
+                pending <a href="/completeItem/{{ $listItem->id }}"><i class="fa-solid fa-check"></i> Mark complete</a>
+            @else
+                complete
+            @endif
+            <a href="/editItem/{{ $listItem->id }}" class="text-blue-400 px-6 py-2 rounded-xl"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+            <form style="display: inline;" method="POST" action="/deleteItem/{{ $listItem->id }}">
+                @csrf
+                @method('DELETE')
+                <button class="text-red-500"><i class="fa-solid fa-trash"></i> Delete</button>
+            </form>
         </p>
+        
+        
         @endforeach
 
         <form method="POST" action="/saveItem">

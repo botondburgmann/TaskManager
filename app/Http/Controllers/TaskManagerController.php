@@ -46,4 +46,26 @@ class TaskManagerController extends Controller
     {
         return view('welcome', ['listItems' => listItem::where('is_complete', '=', '0')->orderBy('due_date')->get()]);
     }
+
+    public function edit(ListItem $listItem)
+    {
+        return view('edit', ['listItem' => $listItem]);
+    }
+
+    public function update(Request $request, ListItem $listItem)
+    {
+        // Make sure logged in user is owner
+
+        if ($listItem->user_id != auth()->id()) {
+            abort(403, 'Unauthorized Action');
+        }
+
+
+        $listItem->name = $request->name;
+        $listItem->description = $request->description;
+        $listItem->due_date = $request->due_date;
+        $listItem->save();
+
+        return redirect('/');
+    }
 }

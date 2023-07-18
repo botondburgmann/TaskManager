@@ -32,6 +32,12 @@ Route::get('/filterPending', [TaskManagerController::class, 'filterPending'])->m
 // Show All Tasks
 Route::get('/showAll', [TaskManagerController::class, 'index'])->middleware('auth');
 
+// Show Edit Form
+Route::get('/editItem/{listItem}', [TaskManagerController::class, 'edit'])->middleware('auth');
+
+// Update Task
+Route::put('/saveItem/{listItem}', [TaskManagerController::class, 'update'])->middleware('auth');
+
 // Show Registration Form
 Route::get('/register', [UserController::class, 'register'])->middleware('guest');
 
