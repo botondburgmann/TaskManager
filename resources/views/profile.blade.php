@@ -16,16 +16,14 @@
     </head>
     <body>
 
-        <form method="POST" action="/saveItem/{{ $listItem->id }}">
+        <form method="POST" action="/saveProfile/{{ $user->id }}">
             @csrf
             @method('PUT')
-            <label for="name">Title</label>
-            <input type="text" name="name" id="name" value="{{ $listItem->name }}"><br>
-            <label for="description">Description</label>
-            <textarea name="description" id="description" cols="30" rows="10">{{ $listItem->description }}</textarea><br>
-            <label for="due:date">Due date</label>
-            <input type="date" name="due_date" id="due_date" value="{{ $listItem->due_date }}"><br>
-            <button type="submit">Edit task</button>
+            <label for="name">Name</label>
+            <input type="text" name="name" id="name" value="{{ $user->name }}"><br>
+            <label for="due:date">Email address</label>
+            <input type="email" name="email" id="email" value="{{ $user->email }}"><br>
+            <button type="submit">Save changes</button>
         </form>
     </body>
 </html>

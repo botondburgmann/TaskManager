@@ -22,7 +22,14 @@
                     Welcome {{ auth()->user()->name }}
                 </span>
             </li>
-
+            <li>
+                <a
+                href="/userProfile/{{ auth()->id() }}"
+                ><i
+                    class="fa-solid fa-user"
+                ></i>
+                User profile</a>
+            </li>
             <li>
                 <form class="inline" method="POST" action="/logout">
                     @csrf
@@ -31,19 +38,6 @@
                     </button>
                 </form>
             </li>
-            @else
-            <li>
-                <a href="/register" class="hover:text-laravel"
-                    ><i class="fa-solid fa-user-plus"></i> Register</a
-                >
-            </li>
-            <li>
-                <a href="/login" class="hover:text-laravel"
-                    ><i class="fa-solid fa-arrow-right-to-bracket"></i>
-                    Login</a
-                >
-            </li>
-            @endauth
 
         </ul>
         <a
@@ -66,6 +60,7 @@
         Show All</a>
         
         @foreach ($listItems as $listItem )
+        @if ($listItem->user_id == auth()->id())
         <p style="display: inline-block;">
             Task: {{ $listItem->name }} - Deadline: {{ $listItem->due_date }} - Status
             @if ($listItem->is_complete == 0)
@@ -80,7 +75,9 @@
                 <button class="text-red-500"><i class="fa-solid fa-trash"></i> Delete</button>
             </form>
         </p>
-        
+          
+        @endif
+
         
         @endforeach
 
@@ -94,5 +91,20 @@
             <input type="date" name="due_date" id="due_date"><br>
             <button type="submit">Add new task</button>
         </form>
+            @else
+            <li>
+                <a href="/register" class="hover:text-laravel"
+                    ><i class="fa-solid fa-user-plus"></i> Register</a
+                >
+            </li>
+            <li>
+                <a href="/login" class="hover:text-laravel"
+                    ><i class="fa-solid fa-arrow-right-to-bracket"></i>
+                    Login</a
+                >
+            </li>
+            @endauth
+
+       
     </body>
 </html>

@@ -65,4 +65,28 @@ class UserController extends Controller
 
         return back()->withErrors(['email' => 'Invalid Credentials'])->onlyInput('input');
     }
+
+    // Show User Profile
+    public function userProfile()
+    {
+        return view('profile', ['user' => auth()->user()]);
+    }
+
+    public function update(Request $request, User $user)
+    {
+        // Make sure logged in user is owner
+
+
+        if ($user->id != auth()->id()) {
+            abort(403, 'Unauthorized Action');
+        }
+
+
+
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->save();
+
+        return redirect('/');
+    }
 }
