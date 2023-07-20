@@ -37,6 +37,15 @@ class TaskManagerController extends Controller
         return redirect('/');
     }
 
+    public function incomplete($id)
+    {
+        $listItem = ListItem::find($id);
+        $listItem->is_complete = 0;
+        $listItem->save();
+
+        return redirect('/');
+    }
+
     public function filterComplete()
     {
         return view('welcome', ['listItems' => listItem::where('is_complete', '=', '1')->orderBy('due_date')->get()]);

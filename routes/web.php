@@ -23,6 +23,9 @@ Route::post('/saveItem', [TaskManagerController::class, 'store'])->middleware('a
 // Update Task As Completed
 Route::get('/completeItem/{id}', [TaskManagerController::class, 'complete'])->middleware('auth');
 
+// Update Task As Pending
+Route::get('/incompleteItem/{id}', [TaskManagerController::class, 'incomplete'])->middleware('auth');
+
 // Filter Completed Tasks
 Route::get('/filterComplete', [TaskManagerController::class, 'filterComplete'])->middleware('auth');
 
